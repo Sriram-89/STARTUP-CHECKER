@@ -1,16 +1,15 @@
 const express = require("express");
-const app = express();
 
-app.use(express.json());
+const app = express();
 
 app.get("/", (req, res) => {
   res.send("Startup Idea Validator Server Running 🚀");
 });
 
-app.post("/check", (req, res) => {
-  const idea = req.body.idea || "";
+app.get("/check", (req, res) => {
+  const idea = (req.query.idea || "").toLowerCase();
 
-  if (idea.toLowerCase().includes("food")) {
+  if (idea.includes("food")) {
     res.json({
       exists: true,
       message: "Similar startup exists",
@@ -29,4 +28,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
-
