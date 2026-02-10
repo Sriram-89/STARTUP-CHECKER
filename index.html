@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Startup Idea Validator</title>
+</head>
+<body>
+  <h1>Startup Idea Validator 🚀</h1>
+
+  <textarea id="idea" rows="6" cols="60"
+    placeholder="Enter your startup idea..."></textarea>
+  <br><br>
+
+  <button onclick="checkIdea()">Check Idea</button>
+
+  <p id="result"></p>
+
+  <script>
+    async function checkIdea() {
+      const idea = document.getElementById("idea").value;
+
+      const response = await fetch("http://localhost:3000/check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idea })
+      });
+
+      const data = await response.json();
+
+      document.getElementById("result").innerText =
+        data.message + " | Suggestion: " + data.suggestion;
+    }
+  </script>
+</body>
+</html>
